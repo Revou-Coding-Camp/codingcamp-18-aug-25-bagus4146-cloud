@@ -42,3 +42,37 @@ function renderTasks() {
         todoListContainer.appendChild(row);
     }
 }
+
+function filterTasks() {
+    const filterInput = document.getElementById("filter-input").value.trim().toLowerCase();
+    if (filterInput === '') {
+        renderFilteredTasks(todoList);
+        return;
+    }
+
+    const filteredTasks = todoList.filter(task => task.task.toLowerCase().includes(filterInput));
+    renderFilteredTasks(filteredTasks);
+}
+
+function renderFilteredTasks(filteredTasks) {
+    const todoListContainer = document.getElementById("todo-list");
+    todoListContainer.innerHTML = '';
+
+    for (let i = 0; i < filteredTasks.length; i++) {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td class="text-center">${filteredTasks[i].task}</td>
+            <td class="text-center">${filteredTasks[i].date}</td>
+            <td class="text-center">${filteredTasks[i].status}</td>
+        `;
+
+        todoListContainer.appendChild(row);
+    }
+}
+
+function deleteTask() {
+    todoList = [];
+    renderTasks();
+}
+
